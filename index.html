@@ -190,7 +190,7 @@
             display: flex;
             flex-direction: column;
             padding: 20px;
-            min-height: 280px;
+            min-height: 240px;
         }
 
         .script-card:hover {
@@ -208,42 +208,6 @@
             word-break: break-word;
         }
 
-        .script-card .game-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-        }
-
-        .tag-new {
-            background: rgba(67, 181, 129, 0.2);
-            color: var(--accent2);
-        }
-
-        .tag-hot {
-            background: rgba(240, 71, 71, 0.2);
-            color: var(--danger);
-        }
-
-        .tag-popular {
-            background: rgba(250, 166, 26, 0.2);
-            color: var(--warning);
-        }
-
-        .tag-premium {
-            background: rgba(114, 137, 218, 0.2);
-            color: var(--accent);
-        }
-
         .script-card .card-desc {
             font-size: 13px;
             color: var(--text2);
@@ -258,7 +222,7 @@
 
         .script-card .card-footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             font-size: 11px;
             color: var(--text2);
@@ -267,19 +231,15 @@
             margin-top: auto;
         }
 
-        .card-footer .update-date {
-            opacity: 0.7;
-        }
-
         .card-footer .view-btn {
             background: var(--accent);
             color: #fff;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 4px;
             border: none;
             cursor: pointer;
             font-weight: 600;
-            font-size: 11px;
+            font-size: 12px;
             transition: background 0.2s;
         }
 
@@ -344,14 +304,7 @@
         .modal .modal-title {
             font-size: 26px;
             font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        .modal .modal-tags {
-            display: flex;
-            gap: 8px;
             margin-bottom: 16px;
-            flex-wrap: wrap;
         }
 
         .modal .modal-section {
@@ -519,7 +472,7 @@
         <div class="logo">BLAST SCRIPT HUB</div>
         <div class="search-container">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Cari script... (nama game / fitur / tag)" oninput="filterScripts()">
+            <input type="text" id="searchInput" placeholder="Cari script... (nama game / fitur)" oninput="filterScripts()">
         </div>
         <div class="nav-stats">
             Total: <span id="totalScripts">0</span> Script
@@ -550,7 +503,6 @@
         <div class="modal" id="modalContent" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModalDirect()">✕</button>
             <div class="modal-title" id="modalTitle"></div>
-            <div class="modal-tags" id="modalTags"></div>
             <div class="modal-section">
                 <h4>Deskripsi Lengkap</h4>
                 <div class="modal-desc" id="modalDesc"></div>
@@ -612,17 +564,15 @@
                 if (!line) continue;
 
                 const cols = parseCSVLine(line);
-                if (cols.length < 7) continue;
+                if (cols.length < 5) continue;
 
                 const script = {
                     id: String(i),
                     gameTitle: cols[0]?.trim() || "Untitled",
-                    tags: cols[1]?.trim() ? cols[1].split(',').map(t => t.trim().toLowerCase()) : [],
-                    shortDesc: cols[2]?.trim() || "",
-                    description: cols[3]?.trim() || "",
-                    features: cols[4]?.trim() ? cols[4].split('|').map(f => f.trim()) : [],
-                    scriptLink: cols[5]?.trim() || "",
-                    updateDate: cols[6]?.trim() || ""
+                    shortDesc: cols[1]?.trim() || "",
+                    description: cols[2]?.trim() || "",
+                    features: cols[3]?.trim() ? cols[3].split('|').map(f => f.trim()) : [],
+                    scriptLink: cols[4]?.trim() || ""
                 };
 
                 if (script.gameTitle) {
@@ -682,21 +632,10 @@
             const card = document.createElement('div');
             card.className = 'script-card';
 
-            const tagsHtml = script.tags.map(tag => {
-                let tagClass = 'tag';
-                if (tag === 'new') tagClass += ' tag-new';
-                else if (tag === 'hot') tagClass += ' tag-hot';
-                else if (tag === 'popular') tagClass += ' tag-popular';
-                else if (tag === 'premium') tagClass += ' tag-premium';
-                return `<span class="${tagClass}">${tag}</span>`;
-            }).join('');
-
             card.innerHTML = `
                 <div class="card-game-title">${escapeHtml(script.gameTitle)}</div>
-                <div class="game-tags">${tagsHtml}</div>
                 <div class="card-desc">${escapeHtml(script.shortDesc)}</div>
                 <div class="card-footer">
-                    <span class="update-date">${script.updateDate || 'N/A'}</span>
                     <button class="view-btn" onclick="event.stopPropagation(); openModal(${script.id})">Lihat Detail</button>
                 </div>
             `;
@@ -713,16 +652,6 @@
             currentModalData = script;
             document.getElementById('modalOverlay').style.display = 'flex';
             document.getElementById('modalTitle').textContent = script.gameTitle;
-
-            const tagsHtml = script.tags.map(tag => {
-                let tagClass = 'tag';
-                if (tag === 'new') tagClass += ' tag-new';
-                else if (tag === 'hot') tagClass += ' tag-hot';
-                else if (tag === 'popular') tagClass += ' tag-popular';
-                else if (tag === 'premium') tagClass += ' tag-premium';
-                return `<span class="${tagClass}">${tag}</span>`;
-            }).join('');
-            document.getElementById('modalTags').innerHTML = tagsHtml;
 
             document.getElementById('modalDesc').textContent = script.description;
 
@@ -783,7 +712,7 @@
             }
 
             const filtered = allScripts.filter(script => {
-                const searchableText = `${script.gameTitle} ${script.shortDesc} ${script.description} ${script.tags.join(' ')}`.toLowerCase();
+                const searchableText = `${script.gameTitle} ${script.shortDesc} ${script.description} ${script.features.join(' ')}`.toLowerCase();
                 return searchableText.includes(query);
             });
 
