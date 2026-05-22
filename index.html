@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAST SCRIPT HUB - Roblox Script Repository</title>
+    <style>
+        :root {
+            --bg: #0a0a10;
+            --surface: #12121a;
+            --surface2: #1a1a25;
+            --border: #252535;
+            --text: #e0e0e0;
+            --text2: #8888aa;
+            --accent: #7289da;
+            --accent2: #43b581;
+            --danger: #f04747;
+            --warning: #faa61a;
+            --radius: 10px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --card-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            min-height: 100vh;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: rgba(18, 18, 26, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .navbar .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #f04747, #faa61a, #f04747);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: flicker 4s infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.5; }
+            94% { opacity: 1; }
+            96% { opacity: 0.6; }
+            97% { opacity: 1; }
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            font-size: 14px;
+            font-family: var(--font);
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.15);
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text2);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .nav-stats {
+            font-size: 13px;
+            color: var(--text2);
+            white-space: nowrap;
+        }
+
+        .nav-stats span {
+            color: var(--accent2);
+            font-weight: 700;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 24px 20px 40px 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text2);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent2);
+        }
+
+        .section-subtitle {
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 10px;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 40px;
+            color: var(--text2);
+            grid-column: 1 / -1;
+        }
+
+        .loading-indicator .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== GRID ===== */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+            gap: 20px;
+        }
+
+        /* ===== CARD ===== */
+        .script-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .script-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .script-card .card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: var(--surface2);
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .script-card .card-image-placeholder {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, var(--surface2), #1f1f30);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #333;
+        }
+
+        .script-card .card-body {
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .script-card .game-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .script-card .game-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .tag-new {
+            background: rgba(67, 181, 129, 0.2);
+            color: var(--accent2);
+        }
+
+        .tag-hot {
+            background: rgba(240, 71, 71, 0.2);
+            color: var(--danger);
+        }
+
+        .tag-popular {
+            background: rgba(250, 166, 26, 0.2);
+            color: var(--warning);
+        }
+
+        .tag-premium {
+            background: rgba(114, 137, 218, 0.2);
+            color: var(--accent);
+        }
+
+        .script-card .card-desc {
+            font-size: 12px;
+            color: var(--text2);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .script-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+            font-size: 11px;
+            color: var(--text2);
+        }
+
+        .card-footer .update-date {
+            opacity: 0.7;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px;
+            position: relative;
+            animation: slideUp 0.25s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal .close-btn:hover {
+            color: var(--danger);
+        }
+
+        .modal .modal-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            background: var(--surface2);
+        }
+
+        .modal .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .modal .modal-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .modal .modal-section {
+            margin-bottom: 14px;
+        }
+
+        .modal .modal-section h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+
+        .modal .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .modal .feature-list li {
+            font-size: 13px;
+            padding: 8px 12px;
+            background: var(--surface2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal .feature-list li::before {
+            content: "▸";
+            color: var(--accent2);
+            font-weight: bold;
+        }
+
+        .modal .link-box {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            word-break: break-all;
+            color: var(--accent);
+            user-select: all;
+            margin-top: 6px;
+        }
+
+        .modal .btn-copy {
+            margin-top: 8px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+
+        .modal .btn-copy:hover {
+            background: #5f73bc;
+        }
+
+        .modal .btn-copy.copied {
+            background: var(--accent2);
+        }
+
+        /* ===== NO RESULTS ===== */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text2);
+            grid-column: 1 / -1;
+        }
+
+        .no-results .icon {
+            font-size: 64px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .no-results .msg {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 999;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .toast.success { background: var(--accent2); color: #fff; }
+        .toast.error { background: var(--danger); color: #fff; }
+
+        @keyframes slideIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 10px 14px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .search-container {
+                max-width: 100%;
+                width: 100%;
+            }
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 16px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="logo">BLAST SCRIPT HUB</div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Cari script... (nama game / fitur / tag)" oninput="filterScripts()">
+        </div>
+        <div class="nav-stats">
+            Total: <span id="totalScripts">0</span> Script
+        </div>
+    </nav>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main-content">
+        <div class="section-title"><span class="dot"></span> Script Repository</div>
+        <div class="section-subtitle">Data diambil dari Google Sheets · Update real-time</div>
+
+        <div class="script-grid" id="scriptGrid">
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="spinner"></div>
+                <div>Memuat data dari Google Sheets...</div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="icon">📭</div>
+            <div class="msg">Script tidak ditemukan</div>
+            <div style="font-size:13px;margin-top:4px;">Coba kata kunci lain atau hapus filter pencarian.</div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal-overlay" id="modalOverlay" style="display: none;" onclick="closeModal(event)">
+        <div class="modal" id="modalContent" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModalDirect()">✕</button>
+            <img class="modal-image" id="modalImage" src="" alt="" onerror="this.style.display='none';">
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-tags" id="modalTags"></div>
+            <div class="modal-section">
+                <h4>Deskripsi</h4>
+                <p id="modalDesc" style="font-size:14px;line-height:1.5;"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Fitur Script</h4>
+                <ul class="feature-list" id="modalFeatures"></ul>
+            </div>
+            <div class="modal-section">
+                <h4>Link Script (Loadstring)</h4>
+                <div class="link-box" id="modalLink"></div>
+                <button class="btn-copy" id="modalCopyBtn" onclick="copyModalLink()">📋 Copy Link</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== KONFIGURASI GOOGLE SHEETS ====================
+        const SHEET_ID = "1YOUR_SHEET_ID_HERE";
+        const SHEET_GID = "0";
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+
+        let allScripts = [];
+        let currentModalData = null;
+
+        // ==================== FETCH DATA ====================
+        async function fetchScripts() {
+            try {
+                const response = await fetch(CSV_URL);
+                if (!response.ok) throw new Error("Gagal fetch CSV");
+                const csvText = await response.text();
+                allScripts = parseCSV(csvText);
+                renderScripts(allScripts);
+                document.getElementById('totalScripts').textContent = allScripts.length;
+            } catch (err) {
+                console.error("Gagal memuat data:", err);
+                document.getElementById('loadingIndicator').innerHTML = `
+                    <div style="color: var(--danger); font-size: 16px;">⚠️ Gagal memuat data</div>
+                    <div style="font-size: 12px; margin-top: 6px;">${err.message}</div>
+                    <div style="font-size: 12px; margin-top: 12px; color: var(--text2);">
+                        Pastikan:<br>
+                        1. Google Sheet sudah di-publish (File → Share → Publish to web)<br>
+                        2. Sheet ID dan GID sudah benar<br>
+                        3. Format kolom sesuai template
+                    </div>
+                `;
+            }
+        }
+
+        // ==================== PARSE CSV ====================
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n');
+            if (lines.length < 2) return [];
+
+            const scripts = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                const cols = parseCSVLine(line);
+                if (cols.length < 9) continue;
+
+                const script = {
+                    id: cols[0]?.trim() || String(i),
+                    gameTitle: cols[1]?.trim() || "Untitled",
+                    image: cols[2]?.trim() || "",
+                    tags: cols[3]?.trim() ? cols[3].split(',').map(t => t.trim().toLowerCase()) : [],
+                    shortDesc: cols[4]?.trim() || "",
+                    description: cols[5]?.trim() || "",
+                    features: cols[6]?.trim() ? cols[6].split('|').map(f => f.trim()) : [],
+                    loadstringUrl: cols[7]?.trim() || "",
+                    updateDate: cols[8]?.trim() || ""
+                };
+
+                if (script.gameTitle) {
+                    scripts.push(script);
+                }
+            }
+
+            return scripts;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current);
+            return result;
+        }
+
+        // ==================== RENDER SCRIPTS ====================
+        function renderScripts(data) {
+            const grid = document.getElementById('scriptGrid');
+            const noResults = document.getElementById('noResults');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                noResults.style.display = 'flex';
+                grid.style.display = 'none';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            grid.style.display = 'grid';
+
+            data.forEach(script => {
+                const card = createScriptCard(script);
+                grid.appendChild(card);
+            });
+        }
+
+        function createScriptCard(script) {
+            const card = document.createElement('div');
+            card.className = 'script-card';
+
+            const image = script.image ? `<img class="card-image" src="${script.image}" alt="" onerror="this.parentElement.querySelector('.card-image-placeholder').style.display='flex';">` : '';
+            const placeholder = !script.image ? '<div class="card-image-placeholder">🎮</div>' : '';
+
+            const tagsHtml = script.tags.map(tag => {
+                let tagClass = 'tag';
+                if (tag === 'new') tagClass += ' tag-new';
+                else if (tag === 'hot') tagClass += ' tag-hot';
+                else if (tag === 'popular') tagClass += ' tag-popular';
+                else if (tag === 'premium') tagClass += ' tag-premium';
+                return `<span class="${tagClass}">${tag}</span>`;
+            }).join('');
+
+            card.innerHTML = `
+                ${image}
+                ${placeholder}
+                <div class="card-body">
+                    <div class="game-title">${escapeHtml(script.gameTitle)}</div>
+                    <div class="game-tags">${tagsHtml}</div>
+                    <div class="card-desc">${escapeHtml(script.shortDesc)}</div>
+                    <div class="card-footer">
+                        <span class="update-date">${script.updateDate || 'N/A'}</span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', () => openModal(script));
+            return card;
+        }
+
+        // ==================== MODAL FUNCTIONS ====================
+        function openModal(script) {
+            currentModalData = script;
+            document.getElementById('modalOverlay').style.display = 'flex';
+            document.getElementById('modalImage').src = script.image;
+            document.getElementById('modalTitle').textContent = script.gameTitle;
+
+            const tagsHtml = script.tags.map(tag => {
+                let tagClass = 'tag';
+                if (tag === 'new') tagClass += ' tag-new';
+                else if (tag === 'hot') tagClass += ' tag-hot';
+                else if (tag === 'popular') tagClass += ' tag-popular';
+                else if (tag === 'premium') tagClass += ' tag-premium';
+                return `<span class="${tagClass}">${tag}</span>`;
+            }).join('');
+            document.getElementById('modalTags').innerHTML = tagsHtml;
+
+            document.getElementById('modalDesc').textContent = script.description;
+
+            const featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = '';
+            script.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+
+            document.getElementById('modalLink').textContent = script.loadstringUrl;
+
+            document.getElementById('modalCopyBtn').textContent = '📋 Copy Link';
+            document.getElementById('modalCopyBtn').classList.remove('copied');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('modalOverlay')) {
+                document.getElementById('modalOverlay').style.display = 'none';
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        function copyModalLink() {
+            const link = document.getElementById('modalLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                const btn = document.getElementById('modalCopyBtn');
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Link';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                showToast('Gagal copy link', 'error');
+            });
+        }
+
+        // ==================== SEARCH FILTER ====================
+        function filterScripts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            if (!query) {
+                renderScripts(allScripts);
+                return;
+            }
+
+            const filtered = allScripts.filter(script => {
+                const searchableText = `${script.gameTitle} ${script.shortDesc} ${script.description} ${script.tags.join(' ')}`.toLowerCase();
+                return searchableText.includes(query);
+            });
+
+            renderScripts(filtered);
+        }
+
+        // ==================== TOAST NOTIFICATION ====================
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // ==================== UTILITY ====================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchScripts();
+        });
+    </script>
+
+</body>
+</html>
