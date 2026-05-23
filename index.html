@@ -34,7 +34,6 @@
             min-height: 100vh;
         }
 
-        /* ===== NAVBAR ===== */
         .navbar {
             background: rgba(18, 18, 26, 0.9);
             backdrop-filter: blur(20px);
@@ -118,7 +117,6 @@
             font-weight: 700;
         }
 
-        /* ===== MAIN CONTENT ===== */
         .main-content {
             max-width: 1300px;
             margin: 0 auto;
@@ -171,14 +169,12 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ===== GRID ===== */
         .script-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
             gap: 20px;
         }
 
-        /* ===== CARD ===== */
         .script-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -247,7 +243,6 @@
             background: #5f73bc;
         }
 
-        /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -367,16 +362,6 @@
             overflow-y: auto;
         }
 
-        .modal .link-info {
-            font-size: 12px;
-            color: var(--text2);
-            margin-top: 8px;
-            padding: 8px;
-            background: rgba(250, 166, 26, 0.1);
-            border-left: 3px solid var(--warning);
-            border-radius: 4px;
-        }
-
         .modal .btn-copy {
             margin-top: 8px;
             padding: 10px 20px;
@@ -400,7 +385,6 @@
             background: var(--accent2);
         }
 
-        /* ===== NO RESULTS ===== */
         .no-results {
             text-align: center;
             padding: 60px 20px;
@@ -419,7 +403,6 @@
             font-weight: 600;
         }
 
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             top: 20px;
@@ -441,7 +424,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .navbar {
                 padding: 10px 14px;
@@ -460,7 +442,6 @@
             }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
@@ -468,7 +449,6 @@
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="logo">BLAST SCRIPT HUB</div>
         <div class="search-container">
@@ -480,7 +460,6 @@
         </div>
     </nav>
 
-    <!-- ===== MAIN ===== -->
     <div class="main-content">
         <div class="section-title"><span class="dot"></span> Script Repository</div>
         <div class="section-subtitle">Data diambil dari JSON File · Update real-time</div>
@@ -499,7 +478,6 @@
         </div>
     </div>
 
-    <!-- ===== MODAL ===== -->
     <div class="modal-overlay" id="modalOverlay" style="display: none;" onclick="closeModal(event)">
         <div class="modal" id="modalContent" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModalDirect()">✕</button>
@@ -515,20 +493,17 @@
             <div class="modal-section">
                 <h4>Script Link</h4>
                 <div class="link-box" id="modalLink"></div>
-                <div class="link-info">💡 Copy link ini dan pakai dengan perintah: <code>loadstring(game:HttpGet("LINK_ANDA"))()</code></div>
                 <button class="btn-copy" id="modalCopyBtn" onclick="copyModalLink()">📋 Copy Link</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== KONFIGURASI JSON FILE ====================
         const JSON_URL = "scripts.json";
 
         let allScripts = [];
         let currentModalData = null;
 
-        // ==================== FETCH DATA ====================
         async function fetchScripts() {
             try {
                 const response = await fetch(JSON_URL);
@@ -548,7 +523,6 @@
             }
         }
 
-        // ==================== RENDER SCRIPTS ====================
         function renderScripts(data) {
             const grid = document.getElementById('scriptGrid');
             const noResults = document.getElementById('noResults');
@@ -589,7 +563,6 @@
             return card;
         }
 
-        // ==================== MODAL FUNCTIONS ====================
         function openModal(scriptIndex) {
             const script = allScripts[scriptIndex];
             if (!script) return;
@@ -600,7 +573,6 @@
 
             document.getElementById('modalDesc').textContent = script.description;
 
-            // Features
             const featuresList = document.getElementById('modalFeatures');
             const featuresSection = document.getElementById('featuresSection');
             if (script.features && script.features.length > 0) {
@@ -615,7 +587,6 @@
                 featuresSection.style.display = 'none';
             }
 
-            // Link
             document.getElementById('modalLink').textContent = script.scriptLink;
 
             document.getElementById('modalCopyBtn').textContent = '📋 Copy Link';
@@ -634,6 +605,7 @@
 
         function copyModalLink() {
             const link = document.getElementById('modalLink').textContent;
+            
             navigator.clipboard.writeText(link).then(() => {
                 const btn = document.getElementById('modalCopyBtn');
                 btn.textContent = '✓ Copied!';
@@ -642,12 +614,12 @@
                     btn.textContent = '📋 Copy Link';
                     btn.classList.remove('copied');
                 }, 2000);
+                showToast('Link berhasil disalin!', 'success');
             }).catch(() => {
-                showToast('Gagal copy link', 'error');
+                showToast('Gagal copy', 'error');
             });
         }
 
-        // ==================== SEARCH FILTER ====================
         function filterScripts() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
@@ -664,7 +636,6 @@
             renderScripts(filtered);
         }
 
-        // ==================== TOAST NOTIFICATION ====================
         function showToast(message, type = 'success') {
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
@@ -676,14 +647,12 @@
             }, 3000);
         }
 
-        // ==================== UTILITY ====================
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
-        // ==================== INIT ====================
         document.addEventListener('DOMContentLoaded', () => {
             fetchScripts();
         });
