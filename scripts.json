@@ -1,0 +1,18 @@
+[
+  {
+    "gameTitle": "Pickaxes Tycoon",
+    "shortDesc": "Auto farm pickaxes dengan FPS boost optimal",
+    "description": "Script auto farm lengkap untuk Pickaxes Tycoon:\n- Auto pickup loot di plot sendiri\n- Auto pickup chest otomatis\n- Auto unlock chest dengan pengecekan uang\n- Auto discard chest jika uang tidak cukup\n- Auto collect money/gems\n- Boost FPS maksimal (shadows off, fog removed)\n- Support FireTouchInterest untuk kecepatan\n- Menu keybind customizable",
+    "features": [
+      "Auto Pickup Loot",
+      "Auto Pickup Chest",
+      "Auto Unlock Chest",
+      "Auto Discard if Broke",
+      "Auto Collect Money",
+      "FPS Booster",
+      "FireTouchInterest Support",
+      "Custom Menu Keybind"
+    ],
+    "scriptLink": "https://sfl.gl/uMbC"
+  }
+]
