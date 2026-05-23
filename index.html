@@ -483,12 +483,12 @@
     <!-- ===== MAIN ===== -->
     <div class="main-content">
         <div class="section-title"><span class="dot"></span> Script Repository</div>
-        <div class="section-subtitle">Data diambil dari Google Sheets · Update real-time</div>
+        <div class="section-subtitle">Data diambil dari JSON File · Update real-time</div>
 
         <div class="script-grid" id="scriptGrid">
             <div class="loading-indicator" id="loadingIndicator">
                 <div class="spinner"></div>
-                <div>Memuat data dari Google Sheets...</div>
+                <div>Memuat data scripts...</div>
             </div>
         </div>
 
@@ -522,10 +522,8 @@
     </div>
 
     <script>
-        // ==================== KONFIGURASI GOOGLE SHEETS ====================
-        const SHEET_ID = "1gOooNLhVe5-X_H8Pnd2soU8RbDBeeDMkqpD_luezf_Q";
-        const SHEET_GID = "0";
-        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+        // ==================== KONFIGURASI JSON FILE ====================
+        const JSON_URL = "scripts.json";
 
         let allScripts = [];
         let currentModalData = null;
@@ -533,10 +531,9 @@
         // ==================== FETCH DATA ====================
         async function fetchScripts() {
             try {
-                const response = await fetch(CSV_URL);
-                if (!response.ok) throw new Error("Gagal fetch CSV");
-                const csvText = await response.text();
-                allScripts = parseCSV(csvText);
+                const response = await fetch(JSON_URL);
+                if (!response.ok) throw new Error("Gagal fetch scripts.json");
+                allScripts = await response.json();
                 renderScripts(allScripts);
                 document.getElementById('totalScripts').textContent = allScripts.length;
             } catch (err) {
@@ -545,63 +542,10 @@
                     <div style="color: var(--danger); font-size: 16px;">⚠️ Gagal memuat data</div>
                     <div style="font-size: 12px; margin-top: 6px;">${err.message}</div>
                     <div style="font-size: 12px; margin-top: 12px; color: var(--text2);">
-                        Pastikan:<br>
-                        1. Google Sheet sudah di-publish (File → Share → Publish to web)<br>
-                        2. Sheet ID dan GID sudah benar<br>
-                        3. Format kolom sesuai template
+                        Pastikan file <code>scripts.json</code> ada di root repository.
                     </div>
                 `;
             }
-        }
-
-        // ==================== PARSE CSV ====================
-        function parseCSV(csvText) {
-            const lines = csvText.split('\n');
-            if (lines.length < 2) return [];
-
-            const scripts = [];
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-
-                const cols = parseCSVLine(line);
-                if (cols.length < 5) continue;
-
-                const script = {
-                    id: String(i),
-                    gameTitle: cols[0]?.trim() || "Untitled",
-                    shortDesc: cols[1]?.trim() || "",
-                    description: cols[2]?.trim() || "",
-                    features: cols[3]?.trim() ? cols[3].split('|').map(f => f.trim()) : [],
-                    scriptLink: cols[4]?.trim() || ""
-                };
-
-                if (script.gameTitle) {
-                    scripts.push(script);
-                }
-            }
-
-            return scripts;
-        }
-
-        function parseCSVLine(line) {
-            const result = [];
-            let current = '';
-            let inQuotes = false;
-
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                if (char === '"') {
-                    inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
-                    result.push(current);
-                    current = '';
-                } else {
-                    current += char;
-                }
-            }
-            result.push(current);
-            return result;
         }
 
         // ==================== RENDER SCRIPTS ====================
@@ -623,13 +567,13 @@
             noResults.style.display = 'none';
             grid.style.display = 'grid';
 
-            data.forEach(script => {
-                const card = createScriptCard(script);
+            data.forEach((script, index) => {
+                const card = createScriptCard(script, index);
                 grid.appendChild(card);
             });
         }
 
-        function createScriptCard(script) {
+        function createScriptCard(script, index) {
             const card = document.createElement('div');
             card.className = 'script-card';
 
@@ -637,17 +581,17 @@
                 <div class="card-game-title">${escapeHtml(script.gameTitle)}</div>
                 <div class="card-desc">${escapeHtml(script.shortDesc)}</div>
                 <div class="card-footer">
-                    <button class="view-btn" onclick="event.stopPropagation(); openModal(${script.id})">Lihat Detail</button>
+                    <button class="view-btn" onclick="event.stopPropagation(); openModal(${index})">Lihat Detail</button>
                 </div>
             `;
 
-            card.addEventListener('click', () => openModal(script.id));
+            card.addEventListener('click', () => openModal(index));
             return card;
         }
 
         // ==================== MODAL FUNCTIONS ====================
-        function openModal(scriptId) {
-            const script = allScripts.find(s => s.id === String(scriptId));
+        function openModal(scriptIndex) {
+            const script = allScripts[scriptIndex];
             if (!script) return;
 
             currentModalData = script;
@@ -659,7 +603,7 @@
             // Features
             const featuresList = document.getElementById('modalFeatures');
             const featuresSection = document.getElementById('featuresSection');
-            if (script.features.length > 0) {
+            if (script.features && script.features.length > 0) {
                 featuresSection.style.display = 'block';
                 featuresList.innerHTML = '';
                 script.features.forEach(feature => {
@@ -713,7 +657,7 @@
             }
 
             const filtered = allScripts.filter(script => {
-                const searchableText = `${script.gameTitle} ${script.shortDesc} ${script.description} ${script.features.join(' ')}`.toLowerCase();
+                const searchableText = `${script.gameTitle} ${script.shortDesc} ${script.description} ${(script.features || []).join(' ')}`.toLowerCase();
                 return searchableText.includes(query);
             });
 
