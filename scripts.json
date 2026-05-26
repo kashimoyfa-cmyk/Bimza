@@ -33,5 +33,20 @@
       "Mobile & Console Friendly"
     ],
     "scriptLink": "https://sfl.gl/DjAl"
+  },
+  {
+"gameTitle": "Push rock for brainrot",
+"shortDesc": "Auto farm, unlock VIP gratis, upgrade solo/carry, dan rebirth otomatis.",
+"description": "Script cheat untuk game Roblox yang mendukung auto collect spot, auto upgrade karakter, auto destroy rock, auto buy solo/carry, auto rebirth, serta unlock VIP (termasuk bypass zona dan tunnel). Dilengkapi dengan GUI modern, fitur noclip, fly, teleport ke mouse, dan Btools.",
+"features": [
+"Auto collect & upgrade spot (deteksi jumlah spot dari UI Rebirth)",
+"Auto buy solo (1x/10x) dan auto buy carry hingga max",
+"Auto rebirth berdasarkan jumlah solo yang dimiliki",
+"Unlock VIP gratis (atribut VIP, MVP, SpeedCoil, AutoCollect, dll.)",
+"Mode noclip, fly, speed/jump multiplier, teleport ke mouse",
+"Instant proximity prompt & penghancuran batu (Ball1-Ball8)"
+],
+"scriptLink": "https://sfl.gl/h7REgeFa"
   }
 ]
+
