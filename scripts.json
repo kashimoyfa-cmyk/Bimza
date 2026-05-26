@@ -14,5 +14,24 @@
       "Custom Menu Keybind"
     ],
     "scriptLink": "https://sfl.gl/uMbC"
+  },
+  {
+    "gameTitle": "Brainrots",
+    "shortDesc": "Auto Farm, Auto Upgrade, Auto Break Walls, Auto Swing, FPS Boost",
+    "description": "Brainrots Ultimate Hub v5 adalah script all-in-one untuk game Brainrots. Fitur lengkap meliputi auto collect cash dengan teleport ke stand yang terisi brainrot, auto upgrade stand, auto upgrade speed & hacking, no cooldown swing, auto swing, instant break walls, walkspeed changer, dan FPS boost. GUI draggable support PC, mobile, console.",
+    "features": [
+      "Walkspeed Changer (16-250)",
+      "Instant Break All Walls (Hacking Wall)",
+      "No Cooldown Swing (Bat)",
+      "Auto Swing (tanpa henti)",
+      "Auto Upgrade Stand (otomatis upgrade semua stand)",
+      "Auto Upgrade Speed (beli speed upgrade terus menerus)",
+      "Auto Upgrade Hacking (beli hacking upgrade terus menerus)",
+      "Auto Collect Cash (teleport ke stand terisi brainrot di plot 6)",
+      "FPS Boost (disable particle, rainbow, fire, blur, sound loop)",
+      "GUI Draggable (support mouse & touch)",
+      "Mobile & Console Friendly"
+    ],
+    "scriptLink": "https://sfl.gl/v4lfOC"
   }
 ]
