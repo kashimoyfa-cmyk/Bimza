@@ -47,6 +47,20 @@
 "Instant proximity prompt & penghancuran batu (Ball1-Ball8)"
 ],
 "scriptLink": "https://sfl.gl/PxzSv"
+  },
+  {
+"gameTitle": "Dream for Brainrot",
+"shortDesc": "Auto farm, upgrade tanpa cek cash, rebirth otomatis, dan FPS boost.",
+"description": "Script cheat untuk game Dream for Brainrot dengan fitur auto farm teleport ke 2 titik sambil spam remote pickup, auto upgrade speed/carry/unlock slot tanpa cek cash (kecuali rebirth), auto upgrade brainrot slot 1-30, auto collect cash, auto rebirth dengan pengecekan uang, noclip, speed boost hingga 200, dan FPS boost. Menggunakan framework Obsidian UI.",
+"features": [
+"Auto Farm (teleport cepat antara 2 titik + spam remote PickupDreamBrainrot)",
+"Auto Upgrade Speed & Carry (1 level, tanpa cek cash, via Upgrade:InvokeServer)",
+"Auto Unlock Slot & Auto Upgrade Brainrot (slot 1-30)",
+"Auto Rebirth (dengan cek cash sesuai tabel biaya)",
+"Auto Collect Cash & Request spawn brainrot",
+"Noclip, Speed Boost (16-200), FPS Boost (disable efek visual)"
+],
+"scriptLink": "https://sfl.gl/8QvlbS"
   }
 ]
 
