@@ -61,6 +61,20 @@
 "Noclip, Speed Boost (16-200), FPS Boost (disable efek visual)"
 ],
 "scriptLink": "https://sfl.gl/8QvlbS"
+  },
+  {
+"gameTitle": "+1 Weapon Evolution",
+"shortDesc": "Auto farm, one-hit kill, auto rebirth, speed hingga 800, dan FPS boost.",
+"description": "Script cheat untuk game Weapon Evolution dengan fitur lengkap: auto click (CPS), auto swing, auto rebirth hingga target tertentu, auto upgrade weapon terbaik berdasarkan wins, auto equip slime terbaik, speed hack (max 800), infinite jump, auto full heal, one-hit kill (4 metode: aggressive, damage, hook, attack), ESP musuh, dan FPS boost ekstrem yang menonaktifkan shadow, partikel, decal, serta efek visual lainnya. Menggunakan framework Obsidian UI.",
+"features": [
+"Auto Swing & Auto Click (CPS 1-30)",
+"Auto Rebirth hingga target tertentu (0 = unlimited)",
+"Auto Upgrade Weapon terbaik & Auto Equip Slime terbaik",
+"One-Hit Kill (4 metode: aggressive, damage, hook, attack)",
+"Speed Hack (16-800), Infinite Jump, Auto Full Heal",
+"ESP Musuh & FPS Boost (disable shadow, partikel, decal, fog, dll.)"
+],
+"scriptLink": "https://sfl.gl/gVLEIi"
   }
 ]
 
