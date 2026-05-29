@@ -76,5 +76,19 @@
 ],
 "scriptLink": "https://sfl.gl/gVLEIi"
   }
+  {
+"gameTitle": "Fight for Hacker",
+"shortDesc": "Auto kill, auto dodge, auto collect cash, dan modifikasi gerakan.",
+"description": "Script cheat untuk game Fight for Hacker dengan fitur instant kill (spam remote HitboxDetection), auto dodge dari spike dan musuh, auto collect uang dari plot dengan delay yang bisa diatur, serta modifikasi walk speed (hingga 250), jump power (hingga 250), dan gravity (0-500). Menggunakan UI Rayfield.",
+"features": [
+"Instant Kill (Auto Attack ke musuh Hacker)",
+"Auto Dodge (menghindari spike dan musuh otomatis)",
+"Auto Collect Cash dari semua plot (dengan delay 0.1-2 detik)",
+"Walk Speed (16-250), Jump Power (50-250), Gravity (0-500)",
+"Reset Movement ke default",
+"UI modern Rayfield dengan konfigurasi tersimpan"
+],
+"scriptLink": "https://sfl.gl/oi51u"
+  }
 ]
 
