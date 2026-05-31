@@ -103,5 +103,19 @@
       "Auto Equip Best Tool (berdasarkan nilai earn tertinggi)"
     ],
     "scriptLink": "https://sfl.gl/DVbYm0Ko"
+  },
+  {
+  "gameTitle": "+1 Soldier per Step",
+  "shortDesc": "Auto step, auto upgrade, auto recruit soldier, dan fitur otomatis lainnya.",
+  "description": "Script cheat untuk game incremental +1 Soldier per Step. Fitur meliputi auto step (berjalan otomatis untuk menambah soldier), auto upgrade soldier/weapon, auto recruit, speed hack, dan auto rebirth jika tersedia. Dibuat untuk mempercepat progresi game idle ini.",
+  "features": [
+    "Auto Step (otomatis berjalan untuk menambah soldier per langkah)",
+    "Auto Upgrade Soldier/Weapon (beli upgrade terbaik secara otomatis)",
+    "Auto Recruit (membuka/panggil soldier baru tanpa henti)",
+    "Speed Hack (percepat gerakan atau produksi soldier)",
+    "Auto Rebirth/Prestige (reset dengan bonus jika memungkinkan)",
+    "Auto Claim Reward (klaim daily/mission reward)"
+  ],
+  "scriptLink": "https://sfl.gl/L4hEBYik"
   }
 ]
