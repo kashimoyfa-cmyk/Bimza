@@ -90,4 +90,18 @@
     ],
     "scriptLink": "https://sfl.gl/oi51u"
   }
+  {
+  "gameTitle": "Water Empire",
+  "shortDesc": "Auto sell, beli pump/storage terbaik, upgrade speed, spin, collect, equip tool.",
+  "description": "Script cheat untuk game Water Empire dengan fitur auto sell air berdasarkan threshold kapasitas storage, auto buy best pump dan storage menggunakan data dari M_Models_Data, auto upgrade speed karakter (1, 5, atau 10 level sekaligus), auto spin wheel, auto claim daily reward, auto collect storage dalam radius tertentu, dan auto equip tool dengan earn tertinggi. Menggunakan UI library berbasis Obsidian.",
+  "features": [
+    "Auto Sell (teleport ke titik jual saat storage terisi X%)",
+    "Auto Buy Best Pump & Best Storage (berdasarkan harga dan earn/kapasitas)",
+    "Auto Upgrade Speed (1/5/10 level per upgrade, cek biaya dari M_Speed_Data)",
+    "Auto Spin & Auto Claim Reward",
+    "Auto Collect Storage dalam radius (10-200 studs)",
+    "Auto Equip Best Tool (berdasarkan nilai earn tertinggi)"
+  ],
+  "scriptLink": "https://sfl.gl/DVbYm0Ko"
+  }
 ]
