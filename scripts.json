@@ -117,5 +117,21 @@
     "Auto Claim Reward (klaim daily/mission reward)"
   ],
   "scriptLink": "https://sfl.gl/L4hEBYik"
+  },
+  {
+  "gameTitle": "Slug RNG",
+  "shortDesc": "Auto consume 3 mode, fast roll, magnet anti-lag, auto rebirth kill, teleport 2 radii.",
+  "description": "Script cheat untuk game Slug RNG dengan fitur auto consume item ke slug target (lowest level, highest level, high power), auto equip best slugs, fast roll dengan spin time 0.05 detik dan auto roll spam, auto upgrade skill tree node termurah, auto rebirth dengan kill karakter setelah rebirth, magnet collector optimasi anti-lag (cooldown & cache), auto teleport orbit dengan 2 radius (20 normal, 30 fallback jika stuck), dan auto unlock zone berikutnya. Menggunakan UI Rayfield.",
+  "features": [
+    "Auto Consume (3 mode: Lowest Level, Highest Level, High Power, support Boosts)",
+    "Auto Equip Best Slugs (interval bisa diatur)",
+    "Fast Roll (spin time patched 0.05s + auto roll spam, toggle auto roll via remote)",
+    "Auto Upgrade Skill Tree (beli node termurah dengan pengecekan dependencies & coins)",
+    "Auto Rebirth (cek required Goo, rebirth hingga 25x, kill karakter setelah rebirth)",
+    "Magnet Collector (anti-lag: cooldown 0.05s, refresh cache tiap 2 detik, radius & speed adjustable)",
+    "Auto Teleport Orbit (radius 20 normal, radius 30 fallback jika stuck, deteksi stuck otomatis)",
+    "Auto Unlock Zone (beli zona berikutnya sesuai AreaData)"
+  ],
+  "scriptLink": "https://sfl.gl/MXVJs8lx"
   }
 ]
