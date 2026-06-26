@@ -133,5 +133,20 @@
     "Auto Unlock Zone (beli zona berikutnya sesuai AreaData)"
   ],
   "scriptLink": "https://sfl.gl/MXVJs8lx"
+  },
+  {
+  "gameTitle": "Chicken Farm",
+  "shortDesc": "Auto collect egg, deposit, buy, cash, merge, dan anti AFK via firetouchinterest.",
+  "description": "Script cheat untuk game Chicken Farm dengan fitur auto collect telur dalam radius (5-50), auto deposit telur ke plot, auto buy chicken (Buy1 loop), auto collect cash, auto merge chicken, dan anti AFK multi-metode (VirtualUser, simulasi mouse/keyboard, gerakan karakter, firetouchinterest). UI menggunakan Rayfield dengan cooldown yang dapat disesuaikan per fitur.",
+  "features": [
+    "Auto Collect Eggs (firetouchinterest, radius 5-50, cooldown 0.05-1.0s)",
+    "Auto Deposit Eggs ke plot player (cooldown 0.5-5.0s)",
+    "Auto Buy Chicken (Buy1, cooldown 0.1-2.0s)",
+    "Auto Collect Cash (cooldown 0.1-2.0s)",
+    "Auto Merge Chicken (cooldown 0.5-5.0s)",
+    "Anti AFK (5 metode: VirtualUser, mouse move, key press, karakter gerak, firetouchinterest)",
+    "Status label real-time di UI"
+  ],
+  "scriptLink": "https://sfl.gl/2oHI81R"
   }
 ]
